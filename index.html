@@ -19,18 +19,23 @@
         /* News Categories */
         .section-header { border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin: 40px 0 20px; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; }
         
+        /* Fixed Grid and Card Sizing */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
+        .card { background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; height: 100%; }
         .card:hover { transform: translateY(-5px); }
         
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
         .video-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
         
-        .content { padding: 20px; flex-grow: 1; }
+        /* Content area with fixed text-overflow */
+        .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .content h3 { margin: 10px 0; line-height: 1.3; font-size: 1.4rem; color: var(--blue); }
         .source-tag { font-size: 0.75rem; font-weight: bold; color: var(--gold); text-transform: uppercase; margin-bottom: 5px; display: block; }
         
-        .btn { display: block; text-align: center; padding: 12px; background: var(--blue); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 15px; }
-        .highlight-box { background: #fff; border: 1px solid #dcdcdc; border-left: 6px solid var(--gold); padding: 20px; border-radius: 4px; margin-bottom: 30px; }
+        .btn { display: block; text-align: center; padding: 12px; background: var(--blue); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: auto; }
+        .highlight-box { background: #fff; border: 1px solid #dcdcdc; border-left: 6px solid var(--gold); padding: 25px; border-radius: 4px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -49,10 +54,10 @@
 <div class="container">
 
     <div class="highlight-box">
-        <span class="source-tag">Live Event Alert | WOPG.org</span>
-        <h2 style="margin:5px 0;">Fort Lauderdale: Westin Resort Convention Center</h2>
-        <p><strong>Feb 28, 2026 @ 5:00 PM EST</strong> • Join the new Global Registration System tonight to prepare for tomorrow's ticket launch.</p>
-        <a href="https://www.wopg.org/events/" target="_blank" style="color: var(--blue); font-weight: bold;">Visit Registration Site →</a>
+        <span class="source-tag">Next Live Event | WOPG.org</span>
+        <h2 style="margin:5px 0; color: var(--blue);">Fort Lauderdale: Westin Resort Convention Center</h2>
+        <p><strong>Feb 28, 2026 @ 5:00 PM EST</strong> • Tickets go on sale tomorrow (Sunday) at 11 AM EST. Prices: $150 / $95 / $45.</p>
+        <a href="https://www.wopg.org/events/" target="_blank" style="color: var(--blue); font-weight: bold; text-decoration: none;">🎟️ View Official Event Page →</a>
     </div>
 
     <h2 class="section-header">Latest Video News & Highlights</h2>
@@ -62,9 +67,9 @@
                 <iframe src="https://www.youtube.com/embed/BWxcFJjrI5U" allowfullscreen></iframe>
             </div>
             <div class="content">
-                <span class="source-tag">New Year Message | PremRawat.com</span>
+                <span class="source-tag">New Year Message | 2026</span>
                 <h3>The Boon of Joy</h3>
-                <p>Prem Rawat's core message for 2026, focusing on the simple breath as an anchor for peace.</p>
+                <p>Prem Rawat's core message for the new year, focusing on inner discovery and clarity.</p>
                 <a href="https://www.premrawat.com" target="_blank" class="btn">Full Article</a>
             </div>
         </div>
@@ -74,5 +79,32 @@
                 <iframe src="https://www.youtube.com/embed/ZeYOAO4mtE4" allowfullscreen></iframe>
             </div>
             <div class="content">
-                <span class="source-tag">Humanitarian Impact | TPRF.org</span>
-                <h3>South
+                <span class="source-tag">Humanitarian | TPRF.org</span>
+                <h3>South Africa: 1 Million Meals</h3>
+                <p>The 'Food for People' program in Cape Flats reaches a historic milestone of dignity and hope.</p>
+                <a href="https://tprf.org" target="_blank" class="btn">Watch the Story</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/P-_HhpuL1Nc" allowfullscreen></iframe>
+            </div>
+            <div class="content">
+                <span class="source-tag">Global Event | Buenos Aires</span>
+                <h3>3-Day Argentina Gathering</h3>
+                <p>March 27-29: Five live sessions in Buenos Aires. One full day will be livestreamed worldwide.</p>
+                <a href="https://www.wopg.org/events/" target="_blank" class="btn">Save the Date</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer style="text-align: center; padding: 40px; color: #777; font-size: 0.85rem;">
+    <p>Consolidated Content from: PremRawat.com • TimelessToday • WOPG • TPRF</p>
+    <p>Last Updated: February 21, 2026</p>
+</footer>
+
+</body>
+</html>
