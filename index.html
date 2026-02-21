@@ -3,95 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prem Rawat | Global News Portal</title>
+    <title>The Message of Peace | 2026 Global Portal</title>
     <style>
-        :root { --blue: #112d4e; --gold: #d4af37; --bg: #f4f7f6; --red: #e63946; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #333; }
+        :root { --blue: #0a192f; --gold: #c5a059; --bg: #f8f9fa; --accent: #b22222; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; background: var(--bg); color: #333; }
         
-        /* Breaking News Ticker */
-        .ticker-wrap { background: var(--red); color: white; padding: 12px 0; overflow: hidden; font-weight: bold; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .ticker { display: inline-block; white-space: nowrap; animation: ticker 25s linear infinite; font-size: 1rem; }
+        /* Breaking News Bar */
+        .ticker-wrap { background: var(--accent); color: white; padding: 12px 0; overflow: hidden; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .ticker { display: inline-block; white-space: nowrap; animation: ticker 35s linear infinite; font-weight: bold; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        header { background: var(--blue); color: white; padding: 40px 20px; text-align: center; border-bottom: 5px solid var(--gold); }
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        header { background: var(--blue); color: white; padding: 45px 20px; text-align: center; border-bottom: 4px solid var(--gold); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px; }
         
-        /* Florida Event Highlight */
-        .event-box { background: white; border-radius: 15px; padding: 30px; margin: 20px 0 40px; border-left: 10px solid var(--gold); box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: center; }
-        .event-info h2 { margin-top: 0; color: var(--blue); }
-        .status-badge { background: #d4edda; color: #155724; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        /* News Categories */
+        .section-header { border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin: 40px 0 20px; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 30px; }
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); position: relative; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
-        .video-container iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
-        .info { padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); }
         
-        .btn { display: inline-block; padding: 12px 20px; background: var(--blue); color: white; text-decoration: none; border-radius: 6px; font-weight: bold; width: 100%; text-align: center; box-sizing: border-box; }
-        .btn-gold { background: var(--gold); color: var(--blue); margin-top: 10px; }
-
-        @media (max-width: 768px) { .event-box { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr; } }
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+        .video-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+        
+        .content { padding: 20px; flex-grow: 1; }
+        .source-tag { font-size: 0.75rem; font-weight: bold; color: var(--gold); text-transform: uppercase; margin-bottom: 5px; display: block; }
+        
+        .btn { display: block; text-align: center; padding: 12px; background: var(--blue); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 15px; }
+        .highlight-box { background: #fff; border: 1px solid #dcdcdc; border-left: 6px solid var(--gold); padding: 20px; border-radius: 4px; margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
 <div class="ticker-wrap">
     <div class="ticker">
-        🎟️ TICKETS ON SALE SUNDAY FEB 22 @ 11AM EST (FORT LAUDERDALE) &nbsp;&nbsp;&nbsp;&nbsp; 🇦🇷 BUENOS AIRES GLOBAL EVENT: MARCH 27-29 &nbsp;&nbsp;&nbsp;&nbsp; 🎥 NEW LIVESTREAM ANNOUNCED FOR FLORIDA GATHERING
+        🎟️ TICKETS FOR FLORIDA (FEB 28) ON SALE FEB 22 @ 11AM EST &nbsp;&nbsp; | &nbsp;&nbsp; 🇦🇷 ARGENTINA 3-DAY GATHERING: MARCH 27-29 &nbsp;&nbsp; | &nbsp;&nbsp; 🇿🇦 TPRF MILESTONE: 1 MILLION MEALS SERVED IN SOUTH AFRICA
     </div>
 </div>
 
 <header>
-    <h1>The Message of Peace</h1>
-    <p>Consolidated Global News & Event Portal</p>
+    <h1>The Message of Peace Portal</h1>
+    <p>Official Consolidated News Hub (2025-2026)</p>
 </header>
 
 <div class="container">
 
-    <div class="event-box">
-        <div class="event-info">
-            <div class="status-badge">TICKETS GOING LIVE SOON</div>
-            <h2>Fort Lauderdale, Florida</h2>
-            <p><strong>Date:</strong> February 28, 2026 | 5:00 PM EST</p>
-            <p><strong>Venue:</strong> Westin Resort Convention Center</p>
-            <p><strong>Pricing:</strong> $150 / $95 / $45 USD</p>
-        </div>
-        <div style="text-align:center;">
-            <a href="https://www.wopg.org/prem-rawat-speaking-in-fort-lauderdale-usa-2026/" target="_blank" class="btn">View Official Details</a>
-            <a href="https://www.wopg.org/events/" target="_blank" class="btn btn-gold">Join Registration System</a>
-        </div>
+    <div class="highlight-box">
+        <span class="source-tag">Live Event Alert | WOPG.org</span>
+        <h2 style="margin:5px 0;">Fort Lauderdale: Westin Resort Convention Center</h2>
+        <p><strong>Feb 28, 2026 @ 5:00 PM EST</strong> • Join the new Global Registration System tonight to prepare for tomorrow's ticket launch.</p>
+        <a href="https://www.wopg.org/events/" target="_blank" style="color: var(--blue); font-weight: bold;">Visit Registration Site →</a>
     </div>
 
+    <h2 class="section-header">Latest Video News & Highlights</h2>
     <div class="grid">
         <div class="card">
-            <div style="padding:15px; background:var(--blue); color:white; font-weight:bold;">News: Global Humanitarian Impact</div>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/ZeYOAO4mtE4" allowfullscreen></iframe>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/BWxcFJjrI5U" allowfullscreen></iframe>
             </div>
-            <div class="info">
-                <h3>Peace Education Worldwide</h3>
-                <p>Latest updates on the expansion of the program into new communities in 2026.</p>
+            <div class="content">
+                <span class="source-tag">New Year Message | PremRawat.com</span>
+                <h3>The Boon of Joy</h3>
+                <p>Prem Rawat's core message for 2026, focusing on the simple breath as an anchor for peace.</p>
+                <a href="https://www.premrawat.com" target="_blank" class="btn">Full Article</a>
             </div>
         </div>
 
         <div class="card">
-            <div style="padding:15px; background:var(--blue); color:white; font-weight:bold;">Insight: The Gift of Today</div>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/_HFtVwI2Gus" allowfullscreen></iframe>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/ZeYOAO4mtE4" allowfullscreen></iframe>
             </div>
-            <div class="info">
-                <h3>A Fresh Perspective</h3>
-                <p>Prem Rawat discusses the importance of recognizing the current moment.</p>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<footer style="text-align:center; padding: 40px; color: #888; font-size: 0.9rem;">
-    <p>Data curated from official channels: PremRawat.com | WOPG.org | TPRF.org</p>
-    <p><i>Updated: February 21, 2026</i></p>
-</footer>
-
-</body>
-</html>
+            <div class="content">
+                <span class="source-tag">Humanitarian Impact | TPRF.org</span>
+                <h3>South
