@@ -5,29 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prem Rawat Portal</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #3498db; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
-        header { text-align: center; padding: 40px 20px; background: var(--primary); color: white; border-radius: 12px; margin-bottom: 30px; }
-        .area-container { margin-bottom: 50px; }
-        .area-title { border-bottom: 3px solid var(--accent); display: inline-block; margin-bottom: 25px; padding-bottom: 5px; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 25px; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .theme-tag { color: var(--accent); font-weight: bold; text-transform: uppercase; font-size: 0.8em; }
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; margin: 15px 0; background: #000; border-radius: 8px; overflow: hidden; }
-        .video-box div { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .status { font-size: 0.85em; color: #666; font-style: italic; }
-        @media (max-width: 480px) { .video-grid { grid-template-columns: 1fr; } }
+        :root { --primary: #2c3e50; --accent: #3498db; --bg: #f0f2f5; --card-bg: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
+        
+        header { text-align: center; padding: 30px; background: var(--primary); color: white; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { margin: 0; font-size: 1.8rem; }
+        
+        .area-section { margin-bottom: 40px; }
+        .area-title { border-left: 4px solid var(--accent); padding-left: 15px; margin-bottom: 20px; color: var(--primary); font-size: 1.4rem; }
+        
+        /* The Grid Layout */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+        
+        .card { background: var(--card-bg); padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+        .theme-tag { color: var(--accent); font-weight: bold; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 8px; }
+        .video-title { margin: 0 0 12px 0; font-size: 1.1rem; color: var(--primary); }
+
+        /* Perfect 16:9 Ratio Container - No Black Bars */
+        .video-box { 
+            position: relative; 
+            width: 100%;
+            padding-top: 56.25%; /* Aspect Ratio 16:9 */
+            background: #000; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        .video-box div, .video-box iframe { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border: 0;
+        }
+
+        .status { margin-top: 10px; font-size: 0.8rem; color: #888; display: flex; align-items: center; gap: 5px; }
+        
+        @media (max-width: 500px) { .video-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Prem Rawat Themes</h1>
-    <p>Peace Education Presentation Portal</p>
+    <h1>Prem Rawat Themes Portal</h1>
+    <p>Peace Education Resources</p>
 </header>
 
 <div id="portal-content">
-    <p style="text-align: center;">Initializing portal and scanning video sources...</p>
+    <p style="text-align: center;">Scanning for active sources...</p>
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -35,14 +60,13 @@
 <script>
     let videoData = [];
 
-    // This triggers automatically once the YouTube API is ready
     async function onYouTubeIframeAPIReady() {
         try {
             const response = await fetch('./data.json');
             videoData = await response.json();
             renderGrid();
         } catch (e) {
-            document.getElementById('portal-content').innerHTML = "Error: Could not load data.json. Ensure it is in your GitHub repo.";
+            document.getElementById('portal-content').innerHTML = "Error loading data.json";
         }
     }
 
@@ -50,48 +74,59 @@
         const container = document.getElementById('portal-content');
         container.innerHTML = '';
 
-        videoData.forEach((item, index) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <span class="theme-tag">${item.area}</span>
-                <h3 style="margin: 10px 0;">${item.theme}</h3>
-                <div class="video-box" id="wrapper-${index}">
-                    <div id="player-${index}"></div>
-                </div>
-                <div class="status" id="status-${index}">Verifying source...</div>
-            `;
-            container.appendChild(card);
-            loadBestVideo(index, item.queue, 0);
-        });
+        // Group by Area
+        const grouped = videoData.reduce((acc, item) => {
+            (acc[item.area] = acc[item.area] || []).push(item);
+            return acc;
+        }, {});
+
+        let gIdx = 0;
+        for (const area in grouped) {
+            const section = document.createElement('div');
+            section.className = 'area-section';
+            section.innerHTML = `<h2 class="area-title">${area}</h2>`;
+            
+            const grid = document.createElement('div');
+            grid.className = 'video-grid';
+
+            grouped[area].forEach(item => {
+                const currentIdx = gIdx++;
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <span class="theme-tag">Theme</span>
+                    <h3 class="video-title">${item.theme}</h3>
+                    <div class="video-box" id="wrap-${currentIdx}">
+                        <div id="player-${currentIdx}"></div>
+                    </div>
+                    <div class="status" id="stat-${currentIdx}">Verifying...</div>
+                `;
+                grid.appendChild(card);
+                loadVideo(currentIdx, item.queue, 0);
+            });
+            section.appendChild(grid);
+            container.appendChild(section);
+        }
     }
 
-    function loadBestVideo(cardIdx, queue, queueIdx) {
-        const statusLabel = document.getElementById(`status-${cardIdx}`);
-        
-        new YT.Player(`player-${cardIdx}`, {
-            videoId: queue[queueIdx],
+    function loadVideo(idx, queue, qIdx) {
+        const status = document.getElementById(`stat-${idx}`);
+        new YT.Player(`player-${idx}`, {
+            videoId: queue[qIdx],
             playerVars: { 'modestbranding': 1, 'rel': 0 },
             events: {
-                'onReady': () => {
-                    statusLabel.innerHTML = "✓ Video active";
-                    statusLabel.style.color = "green";
-                },
+                'onReady': () => { status.innerHTML = "✓ Source Verified"; },
                 'onError': (e) => {
-                    // If video is unavailable (101/150), try the next in queue
-                    if (queueIdx + 1 < queue.length) {
-                        statusLabel.innerHTML = "Restricted source... trying backup...";
+                    if (qIdx + 1 < queue.length) {
+                        status.innerHTML = "Trying backup source...";
                         e.target.destroy();
-                        
-                        const wrap = document.getElementById(`wrapper-${cardIdx}`);
+                        const wrap = document.getElementById(`wrap-${idx}`);
                         const nextDiv = document.createElement('div');
-                        nextDiv.id = `player-${cardIdx}`;
+                        nextDiv.id = `player-${idx}`;
                         wrap.appendChild(nextDiv);
-                        
-                        loadBestVideo(cardIdx, queue, queueIdx + 1);
+                        loadVideo(idx, queue, qIdx + 1);
                     } else {
-                        statusLabel.innerHTML = "✖ No embeddable version found.";
-                        statusLabel.style.color = "red";
+                        status.innerHTML = "✖ Source Restricted";
                     }
                 }
             }
