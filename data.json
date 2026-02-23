@@ -9,15 +9,22 @@
   { 
     "area": "1. Inner Discovery", 
     "theme": "Appreciation", 
-    "title": "The Gift of Life", 
-    "youtubeId": "rN6L69_R6S0", 
+    "title": "The Feeling of Appreciation", 
+    "youtubeId": "I8_93X223-o", 
     "source": "https://timelesstoday.tv" 
   },
   { 
     "area": "1. Inner Discovery", 
     "theme": "Self-Awareness", 
-    "title": "Knowing Yourself", 
-    "youtubeId": "I8_93X223-o", 
+    "title": "A Second of Self-Awareness", 
+    "youtubeId": "rN6L69_R6S0", 
     "source": "https://premrawat.com" 
+  },
+  { 
+    "area": "2. Living Experience", 
+    "theme": "Clarity", 
+    "title": "The Gift of Clarity", 
+    "youtubeId": "V-o_IuMv9Xg", 
+    "source": "https://timelesstoday.tv" 
   }
 ]
