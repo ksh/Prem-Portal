@@ -2,56 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Peace News Dashboard - 2026</title>
+    <title>Unified Peace Newsroom - 2026</title>
     <style>
-        :root { --accent: #d4af37; --dark: #2c3e50; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; }
-        .dashboard { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .news-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 4px solid var(--accent); }
-        .tag { font-size: 0.7rem; font-weight: bold; color: var(--accent); text-transform: uppercase; }
-        h2 { margin: 10px 0; font-size: 1.2rem; color: var(--dark); }
-        p { font-size: 0.9rem; color: #666; line-height: 1.5; }
-        .btn { display: block; text-align: center; padding: 10px; background: var(--dark); color: white; text-decoration: none; border-radius: 6px; margin-top: 15px; }
-        .btn:hover { background: #34495e; }
+        :root { --accent: #d4af37; --dark: #2c3e50; --bg: #f8f9fa; --tprf: #0056b3; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); padding: 20px; color: #333; }
+        header { text-align: center; padding: 30px; background: var(--dark); color: white; border-radius: 12px; margin-bottom: 30px; }
+        .dashboard { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 25px; }
+        .news-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .card-header { padding: 15px; background: #fdfdfd; border-bottom: 1px solid #eee; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .video-box { position: relative; padding-top: 56.25%; background: #000; }
+        .video-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+        .content { padding: 20px; flex-grow: 1; }
+        .content h3 { margin: 0 0 10px 0; font-size: 1.15rem; color: var(--dark); }
+        .content p { font-size: 0.9rem; color: #666; line-height: 1.5; margin-bottom: 15px; }
+        .btn { display: block; text-align: center; padding: 12px; background: var(--dark); color: white; text-decoration: none; border-radius: 6px; font-weight: bold; transition: 0.2s; }
+        .btn:hover { background: #3e5871; }
+        .tprf-accent { color: var(--tprf); }
     </style>
 </head>
 <body>
 
-<h1 style="text-align:center; color: var(--dark);">Unified Peace Newsroom</h1>
-<p style="text-align:center; color: #888; margin-bottom: 40px;">Your 2026 Daily Entry Point for Prem Rawat's Message</p>
+<header>
+    <h1>Unified Peace Dashboard</h1>
+    <p>Consolidated News & Media for February 2026</p>
+</header>
 
 <div class="dashboard">
     <div class="news-card">
-        <span class="tag">PremRawat.com</span>
-        <h2>Latest Personal News</h2>
-        <p>Current: 2026 New Year's Message & "Vision of Gandhi" Award highlights. Check the Media Newsroom for personal updates and new book releases.</p>
-        <a href="https://www.premrawat.com/news-impact/" target="_blank" class="btn">Check Recent News</a>
+        <div class="card-header tprf-accent">The Prem Rawat Foundation (TPRF)</div>
+        <div class="video-box">
+            <iframe src="https://www.youtube-nocookie.com/embed/9GNOjXrkYH4" allowfullscreen></iframe>
+        </div>
+        <div class="content">
+            <h3>Humanitarian Impact 2026</h3>
+            <p>New initiatives in Costa Rica and South America. The Peace Education Program is expanding into new schools and community centers this quarter.</p>
+            <a href="https://tprf.org/news-impact-stories/" target="_blank" class="btn" style="background:var(--tprf)">Open TPRF Newsroom</a>
+        </div>
     </div>
 
     <div class="news-card">
-        <span class="tag">TimelessToday</span>
-        <h2>New Media & Livestreams</h2>
-        <p>Current: Experience "Beyond Words" and "Amaroo 2024" archives. Access the "Free to View" section for the latest topical clips like "The Recognition of Thirst."</p>
-        <a href="https://timelesstoday.tv/en/home/" target="_blank" class="btn">View Latest Videos</a>
+        <div class="card-header" style="color:#c5a059">TimelessToday</div>
+        <div class="video-box">
+            <iframe src="https://www.youtube-nocookie.com/embed/xaR49n9MDck" allowfullscreen></iframe>
+        </div>
+        <div class="content">
+            <h3>Recent Media & Clips</h3>
+            <p>Direct access to "Life's Essentials." New topical archives from the 2025 Global Tour are now available for free streaming in the 'Express' section.</p>
+            <a href="https://timelesstoday.tv/en/home/" target="_blank" class="btn" style="background:#c5a059">Go to TimelessToday</a>
+        </div>
     </div>
 
     <div class="news-card">
-        <span class="tag">WOPG Global</span>
-        <h2>Upcoming Global Events</h2>
-        <p>Current: Save the date for the Three-Day Gathering in Buenos Aires (March 2026). Check confirmed event listings and live tour updates here.</p>
-        <a href="https://www.wopg.org/what-we-do/upcoming-events/" target="_blank" class="btn">Check Event Schedule</a>
+        <div class="card-header" style="color:#f39c12">Words of Peace Global</div>
+        <div class="video-box">
+            <iframe src="https://www.youtube-nocookie.com/embed/pSrk-_BWiEI" allowfullscreen></iframe>
+        </div>
+        <div class="content">
+            <h3>Global Event Schedule</h3>
+            <p>Momentum for the Buenos Aires Gathering (March 27-29, 2026). WOPG provides the logistical updates and registration links for all live appearances.</p>
+            <a href="https://www.wopg.org/news/" target="_blank" class="btn" style="background:#f39c12">Check Event News</a>
+        </div>
     </div>
 
     <div class="news-card">
-        <span class="tag">TPRF Impact</span>
-        <h2>Humanitarian & PEP News</h2>
-        <p>Current: Growth of Peace Education in Costa Rica and recent "Food for People" impact reports. View the latest humanitarian initiatives.</p>
-        <a href="https://tprf.org/news-impact-stories/" target="_blank" class="btn">Read Impact Stories</a>
+        <div class="card-header">PremRawat.com</div>
+        <div class="video-box">
+            <iframe src="https://www.youtube-nocookie.com/embed/JiN8AU5cjqk" allowfullscreen></iframe>
+        </div>
+        <div class="content">
+            <h3>Official News & Books</h3>
+            <p>Prem Rawat receives the Vision of Gandhi Award. Official updates on new book releases, personal reflections, and the 'PEAK' program updates.</p>
+            <a href="https://www.premrawat.com/news-impact/" target="_blank" class="btn">Launch Official News</a>
+        </div>
     </div>
 </div>
 
-<footer style="text-align:center; margin-top: 50px; font-size: 0.8rem; color: #aaa;">
-    This dashboard provides direct shortcuts to official 2026 news feeds.
+<footer style="text-align:center; padding: 40px; color: #aaa; font-size: 0.8rem;">
+    Unified Dashboard &copy; 2026 | Direct links to official Foundation resources.
 </footer>
 
 </body>
