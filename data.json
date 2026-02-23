@@ -2,29 +2,21 @@
   { 
     "area": "1. Inner Discovery", 
     "theme": "Peace", 
-    "title": "Peace is Within You", 
-    "youtubeId": "PNmTYv5OIU0", 
-    "source": "https://tprf.org" 
+    "queue": ["PNmTYv5OIU0", "pSrk-_BWiEI", "BWxcFJjrI5U"]
   },
   { 
     "area": "1. Inner Discovery", 
     "theme": "Appreciation", 
-    "title": "The Feeling of Appreciation", 
-    "youtubeId": "I8_93X223-o", 
-    "source": "https://timelesstoday.tv" 
+    "queue": ["MpfuMFsBgNk", "8Gv2ablMCDI", "rN6L69_R6S0"]
   },
   { 
     "area": "1. Inner Discovery", 
     "theme": "Self-Awareness", 
-    "title": "A Second of Self-Awareness", 
-    "youtubeId": "rN6L69_R6S0", 
-    "source": "https://premrawat.com" 
+    "queue": ["ZxLwXajEnwI", "Ut4CEbycGx4", "_KLJFFQpUqg"]
   },
   { 
     "area": "2. Living Experience", 
     "theme": "Clarity", 
-    "title": "The Gift of Clarity", 
-    "youtubeId": "V-o_IuMv9Xg", 
-    "source": "https://timelesstoday.tv" 
+    "queue": ["V-o_IuMv9Xg", "xaR49n9MDck", "sQvHgy8AJjc"]
   }
 ]
