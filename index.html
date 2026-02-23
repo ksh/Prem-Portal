@@ -1,61 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><title>Prem Rawat Portal - Dynamic</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prem Rawat - Peace Education Portal</title>
     <style>
-        body { font-family: sans-serif; background: #f4f7f6; padding: 20px; }
-        .area-container { margin-bottom: 40px; border-bottom: 2px solid #ddd; padding-bottom: 20px; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 5px; }
-        .video-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
-        .theme-tag { color: #3498db; font-weight: bold; font-size: 0.8em; text-transform: uppercase; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; color: #1c1e21; margin: 0; padding: 20px; line-height: 1.6; }
+        header { text-align: center; padding: 50px 20px; background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { margin: 0; font-size: 2.2rem; letter-spacing: 1px; }
+        .area-container { margin-bottom: 60px; }
+        .area-title { border-left: 5px solid #3498db; padding-left: 15px; margin-bottom: 25px; color: #2c3e50; font-size: 1.8rem; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; }
+        @media (max-width: 500px) { .video-grid { grid-template-columns: 1fr; } }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .theme-tag { display: inline-block; background: #e1f5fe; color: #0288d1; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; }
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; background: #000; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        .video-box div { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .status-msg { margin-top: 15px; font-size: 0.85rem; color: #606770; display: flex; align-items: center; gap: 8px; }
+        .loading-spinner { border: 2px solid #f3f3f3; border-top: 2px solid #3498db; border-radius: 50%; width: 12px; height: 12px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        footer { text-align: center; padding: 40px; color: #90949c; font-size: 0.9rem; border-top: 1px solid #ddd; margin-top: 40px; }
     </style>
 </head>
 <body>
-    <h1>Prem Rawat Themes Portal</h1>
-    <div id="portal-content">Loading the latest themes...</div>
 
-    async function loadPortal() {
-    const response = await fetch('./data.json');
-    const themes = await response.json();
-    const container = document.getElementById('portal-content');
-    container.innerHTML = '';
+<header>
+    <h1>Prem Rawat: Areas & Themes</h1>
+    <p>A Curated Presentation Portal</p>
+</header>
 
-    themes.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        // Start with the first video in the queue
-        let currentIdx = 0;
+<div id="portal-content">
+    <div style="text-align:center; padding: 50px;">
+        <div class="loading-spinner" style="display:inline-block; width:40px; height:40px; border-width:4px;"></div>
+        <p>Initializing API and verifying video sources...</p>
+    </div>
+</div>
 
-        card.innerHTML = `
-            <span class="theme-tag">${item.theme}</span>
-            <h3>${item.theme} Presentation</h3>
-            <div class="video-box">
-                <iframe id="video-${item.theme}" 
-                        src="https://www.youtube.com/embed/${item.queue[currentIdx]}?enablejsapi=1" 
-                        allowfullscreen></iframe>
-            </div>
-            <p id="status-${item.theme}" style="font-size:0.8em; color:gray;">Checking availability...</p>
-        `;
-        container.appendChild(card);
+<footer>
+    <p>Content Property of Prem Rawat & Associated Foundations &copy; 2026</p>
+</footer>
 
-        // Logic to swap video if "Unavailable"
-        const iframe = document.getElementById(`video-${item.theme}`);
-        const status = document.getElementById(`status-${item.theme}`);
+<script src="https://www.youtube.com/iframe_api"></script>
 
-        // Note: YouTube doesn't always trigger an error event for blocked embeds, 
-        // so we provide a manual "Try Next Video" button if they see an error.
-        status.innerHTML = `<button onclick="nextVideo('${item.theme}', ${JSON.stringify(item.queue)})">Video not loading? Try Next Option</button>`;
-    });
-}
+<script>
+    let videoData = [];
 
-function nextVideo(themeId, queue) {
-    const iframe = document.getElementById(`video-${themeId}`);
-    // Find current ID and move to next
-    let currentSrc = iframe.src.split('embed/')[1].split('?')[0];
-    let nextIdx = (queue.indexOf(currentSrc) + 1) % queue.length;
-    iframe.src = `https://www.youtube.com/embed/${queue[nextIdx]}?enablejsapi=1`;
-}
-</body>
-</html>
+    // This function runs automatically when the YouTube API is ready
+    async function onYouTubeIframeAPIReady() {
+        try {
+            const response = await fetch('./data.json');
+            if (!response.ok) throw new Error("Could not load data.json");
+            videoData = await response.json();
+            renderLayout();
+        } catch (err) {
+            document.getElementById('portal-content').innerHTML = `<p style="color:red; text-align:center;">Error: ${err.message}</p>`;
+        }
+    }
+
+    function renderLayout() {
+        const container = document.getElementById('portal-content');
+        container.innerHTML = '';
+
+        // Group data by Area
+        const grouped = videoData.reduce((acc, item) => {
+            (acc[item.area] = acc[item.area] || []).push(item);
+            return acc;
+        }, {});
+
+        let globalIndex = 0;
+        for (const area in grouped) {
+            const areaSection = document.createElement('section');
+            areaSection.className = 'area-container';
+            areaSection.innerHTML = `<h2 class="area-title">${area}</h2>`;
+            
+            const grid = document.createElement('div');
+            grid.className = 'video-grid';
+
+            grouped[area].forEach((item) => {
+                const cardIndex = globalIndex++;
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <span class="theme-tag">${item.theme}</span>
+                    <div class="video-box" id="wrapper-${cardIndex}">
+                        <div id="player-${cardIndex}"></div>
+                    </div>
+                    <div class="status-msg" id="msg-${cardIndex}">
+                        <div class="loading-spinner"></div>
+                        <span>Verifying connection...</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+                
+                // Start the search for a working video in the queue
+                tryPlayer(cardIndex, item.queue, 0);
+            });
+
+            areaSection.appendChild(grid);
+            container.appendChild(areaSection);
+        }
+    }
+
+    function tryPlayer(cardIdx, queue, queueIdx) {
+        const statusEl = document.getElementById(`msg-${cardIdx}`);
+        
+        new YT.Player(`player-${cardIdx}`, {
+            videoId: queue[queueIdx],
+            playerVars: { 'autoplay': 0, 'rel': 0, 'modestbranding': 1 },
+            events: {
+                'onReady': (event) => {
+                    statusEl.innerHTML = `<span style="color:green;">✓ Official Source Active</span>`;
+                },
+                'onError': (event) => {
+                    // Error codes 101 or 150 mean embedding is restricted
+                    console.warn(`Video ${queue[queueIdx]} failed (Error ${event.data}).
