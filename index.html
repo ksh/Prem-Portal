@@ -1,102 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prem Rawat - Peace Education Portal</title>
+    <meta charset="UTF-8"><title>Prem Rawat Portal - Dynamic</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
-        header { text-align: center; padding: 40px 0; background: #2c3e50; color: white; border-radius: 8px; margin-bottom: 30px; }
-        h1 { margin: 0; font-size: 2.5em; }
-        .area-section { margin-bottom: 50px; }
-        .area-title { border-bottom: 3px solid #3498db; padding-bottom: 10px; color: #2c3e50; font-size: 1.8em; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; margin-top: 20px; }
-        .video-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .theme-label { font-weight: bold; color: #3498db; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        .video-title { font-size: 1.2em; margin: 15px 0; height: 50px; }
-        .source-link { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; transition: 0.3s; }
-        .source-link:hover { background: #2980b9; }
-        footer { text-align: center; margin-top: 50px; padding: 20px; font-size: 0.9em; color: #7f8c8d; }
+        body { font-family: sans-serif; background: #f4f7f6; padding: 20px; }
+        .area-container { margin-bottom: 40px; border-bottom: 2px solid #ddd; padding-bottom: 20px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 5px; }
+        .video-box iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+        .theme-tag { color: #3498db; font-weight: bold; font-size: 0.8em; text-transform: uppercase; }
     </style>
 </head>
 <body>
+    <h1>Prem Rawat Themes Portal</h1>
+    <div id="portal-content">Loading the latest themes...</div>
 
-<header>
-    <h1>The Inner Discovery Portal</h1>
-    <p>Thematic Themes and Presentations by Prem Rawat</p>
-</header>
+    <script>
+        // REPLACE THESE TWO VARIABLES:
+        const username = 'YOUR_GITHUB_USERNAME';
+        const repo = 'YOUR_REPO_NAME';
+        const dataUrl = `https://raw.githubusercontent.com/${username}/${repo}/main/data.json`;
 
-<section class="area-section">
-    <h2 class="area-title">Area 1: The Inner Discovery</h2>
-    <div class="video-grid">
-        <div class="video-card">
-            <span class="theme-label">Peace</span>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/PNmTYv5OIU0" allowfullscreen></iframe>
-            </div>
-            <h3 class="video-title">Peace is Within You</h3>
-            <a href="https://tprf.org" target="_blank" class="source-link">Visit TPRF.org Source</a>
-        </div>
-        <div class="video-card">
-            <span class="theme-label">Appreciation</span>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/3M3y_h2xI_U" allowfullscreen></iframe>
-            </div>
-            <h3 class="video-title">The Gift of Life</h3>
-            <a href="https://timelesstoday.tv" target="_blank" class="source-link">Visit TimelessToday Source</a>
-        </div>
-    </div>
-</section>
+        async function loadPortal() {
+            try {
+                const response = await fetch(dataUrl);
+                const videos = await response.json();
+                const container = document.getElementById('portal-content');
+                container.innerHTML = ''; // Clear loading text
 
-<section class="area-section">
-    <h2 class="area-title">Area 2: The Living Experience</h2>
-    <div class="video-grid">
-        <div class="video-card">
-            <span class="theme-label">Clarity</span>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/V-o_IuMv9Xg" allowfullscreen></iframe>
-            </div>
-            <h3 class="video-title">Clarity in Every Moment</h3>
-            <a href="https://premrawat.com" target="_blank" class="source-link">Visit PremRawat.com Source</a>
-        </div>
-        <div class="video-card">
-            <span class="theme-label">Inner Strength</span>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/8V_Uu_mQ_Qc" allowfullscreen></iframe>
-            </div>
-            <h3 class="video-title">Discovering Resilience</h3>
-            <a href="https://wopg.org" target="_blank" class="source-link">Visit WOPG.org Source</a>
-        </div>
-    </div>
-</section>
+                // Group by Area
+                const grouped = videos.reduce((acc, video) => {
+                    (acc[video.area] = acc[video.area] || []).push(video);
+                    return acc;
+                }, {});
 
-<section class="area-section">
-    <h2 class="area-title">Area 3: The Human Potential</h2>
-    <div class="video-grid">
-        <div class="video-card">
-            <span class="theme-label">Choice</span>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/6P0m_1H-LSw" allowfullscreen></iframe>
-            </div>
-            <h3 class="video-title">The Power of Conscious Choice</h3>
-            <a href="https://tprf.org" target="_blank" class="source-link">Visit Peace Education Program</a>
-        </div>
-        <div class="video-card">
-            <span class="theme-label">Hope</span>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/q6E0U6yTfGk" allowfullscreen></iframe>
-            </div>
-            <h3 class="video-title">Hope for Tomorrow</h3>
-            <a href="https://www.youtube.com/PremRawatOfficial" target="_blank" class="source-link">Official YouTube Channel</a>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <p>Curated AI Resource Hub &copy; 2026 | Content Rights: Prem Rawat & Associated Foundations</p>
-</footer>
-
+                for (const area in grouped) {
+                    let section = `<div class="area-container"><h2>${area}</h2><div class="video-grid">`;
+                    grouped[area].forEach(v => {
+                        section += `
+                            <div class="card">
+                                <span class="theme-tag">${v.theme}</span>
+                                <h3>${v.title}</h3>
+                                <div class="video-box">
+                                    <iframe src="https://www.youtube.com/embed/${v.youtubeId}"></iframe>
+                                </div>
+                                <p><a href="${v.source}" target="_blank">View Original Source</a></p>
+                            </div>`;
+                    });
+                    section += `</div></div>`;
+                    container.innerHTML += section;
+                }
+            } catch (e) {
+                document.getElementById('portal-content').innerHTML = "Error loading data. Check GitHub file path.";
+            }
+        }
+        loadPortal();
+    </script>
 </body>
 </html>
