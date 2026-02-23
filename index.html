@@ -3,87 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prem Rawat - Unified Source Hub</title>
+    <title>Prem Rawat - 2026 Media Portal</title>
     <style>
-        :root { --tt-gold: #c5a059; --tprf-blue: #0056b3; --wopg-orange: #f39c12; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; }
-        header { text-align: center; padding: 40px; background: #2c3e50; color: white; border-radius: 12px; margin-bottom: 30px; }
-        
-        .source-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .source-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-top: 5px solid #ccc; transition: 0.3s; }
-        .source-card:hover { transform: translateY(-5px); }
-        
-        /* Specific Source Colors */
-        .card-tt { border-color: var(--tt-gold); }
-        .card-tprf { border-color: var(--tprf-blue); }
-        .card-wopg { border-color: var(--wopg-orange); }
-
-        .image-box { width: 100%; height: 200px; background-size: cover; background-position: center; position: relative; }
-        .badge { position: absolute; top: 10px; right: 10px; padding: 5px 12px; border-radius: 5px; color: white; font-size: 0.7rem; font-weight: bold; }
-
-        .content { padding: 20px; }
-        .content h3 { margin-top: 0; color: #333; }
-        .content p { color: #666; font-size: 0.95rem; line-height: 1.5; height: 80px; overflow: hidden; }
-        
-        .btn-launch { display: block; text-align: center; padding: 12px; background: #2c3e50; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 10px; }
-        .btn-launch:hover { opacity: 0.9; }
+        :root { --primary: #2c3e50; --accent: #d4af37; --bg: #f9f9f9; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
+        header { text-align: center; padding: 40px 20px; background: var(--primary); color: white; border-radius: 12px; margin-bottom: 40px; }
+        .area-section { margin-bottom: 60px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .area-title { border-bottom: 3px solid var(--accent); display: inline-block; margin-bottom: 30px; padding-bottom: 10px; color: var(--primary); font-size: 1.8rem; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .video-box { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 10px; overflow: hidden; margin-bottom: 15px; }
+        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .description { font-size: 0.95rem; color: #666; line-height: 1.5; margin-bottom: 15px; }
+        .btn-source { display: inline-block; padding: 10px 18px; background: var(--primary); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.85rem; }
+        @media (max-width: 500px) { .video-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Prem Rawat Official Media Hub</h1>
-    <p>Consolidated Feed from TimelessToday, TPRF, WOPG, and PremRawat.com</p>
+    <p>Recent Insights, Events, and Peace Education (Updated Feb 2026)</p>
 </header>
 
-<div class="source-grid">
-    <div class="source-card card-tt">
-        <div class="image-box" style="background-image: url('https://images.timelesstoday.tv/site/og-image.jpg');">
-            <span class="badge" style="background: var(--tt-gold);">LATEST INSIGHTS</span>
+<section class="area-section">
+    <h2 class="area-title">1. Inner Discovery</h2>
+    <div class="video-grid">
+        <div class="card">
+            <h3>2026 New Year's Message</h3>
+            <div class="video-box">
+                <iframe src="https://www.youtube-nocookie.com/embed/pSrk-_BWiEI" allowfullscreen></iframe>
+            </div>
+            <p class="description">Prem Rawat's 2026 message focusing on the simple miracle of being alive and recognizing the peace that is already within you.</p>
+            <a href="https://www.wopg.org/happy-new-year-2026/" target="_blank" class="btn-source">Source: WOPG.org</a>
         </div>
-        <div class="content">
-            <h3>TimelessToday</h3>
-            <p>Access the latest "Life's Essentials" series and topical clips. This is the primary media platform for Prem Rawat's global broadcasts.</p>
-            <a href="https://timelesstoday.tv/watch" target="_blank" class="btn-launch">Launch TimelessToday Player</a>
-        </div>
-    </div>
-
-    <div class="source-card card-tprf">
-        <div class="image-box" style="background-image: url('https://tprf.org/wp-content/uploads/2021/03/PEP-Logo-Horizontal-1.png'); background-size: contain; background-repeat: no-repeat; background-color: #f9f9f9;">
-            <span class="badge" style="background: var(--tprf-blue);">PEACE EDUCATION</span>
-        </div>
-        <div class="content">
-            <h3>The Prem Rawat Foundation</h3>
-            <p>Direct access to the Peace Education Program (PEP) videos and humanitarian impact stories from around the world.</p>
-            <a href="https://tprf.org/programs/peace-education-program/" target="_blank" class="btn-launch">Open TPRF Video Library</a>
+        <div class="card">
+            <h3>The Recognition of Thirst</h3>
+            <div class="video-box">
+                <iframe src="https://www.youtube-nocookie.com/embed/xaR49n9MDck" allowfullscreen></iframe>
+            </div>
+            <p class="description">A core presentation from the Inner Discovery series regarding the fundamental human need for clarity and contentment.</p>
+            <a href="https://timelesstoday.tv" target="_blank" class="btn-source">Source: TimelessToday</a>
         </div>
     </div>
+</section>
 
-    <div class="source-card card-wopg">
-        <div class="image-box" style="background-image: url('https://www.wopg.org/wp-content/uploads/2023/04/WOPG-logo-300.png'); background-size: contain; background-repeat: no-repeat; background-color: #fff;">
-            <span class="badge" style="background: var(--wopg-orange);">GLOBAL EVENTS</span>
+<section class="area-section">
+    <h2 class="area-title">2. Living Experience</h2>
+    <div class="video-grid">
+        <div class="card">
+            <h3>What Is Shaping You? (Dublin 2026)</h3>
+            <div class="video-box">
+                <iframe src="https://www.youtube-nocookie.com/embed/JiN8AU5cjqk" allowfullscreen></iframe>
+            </div>
+            <p class="description">Recent excerpts from the Dublin event exploring how our environment shapes us and how to find an internal anchor.</p>
+            <a href="https://www.premrawat.com" target="_blank" class="btn-source">Source: PremRawat.com</a>
         </div>
-        <div class="content">
-            <h3>Words of Peace Global</h3>
-            <p>View "Behind the Scenes" videos and live webinar replays from global speaking tours and events.</p>
-            <a href="https://www.wopg.org/behind-the-scenes-videos/" target="_blank" class="btn-launch">Launch WOPG Feed</a>
+        <div class="card">
+            <h3>A Memory of Kindness</h3>
+            <div class="video-box">
+                <iframe src="https://www.youtube-nocookie.com/embed/MpfuMFsBgNk" allowfullscreen></iframe>
+            </div>
+            <p class="description">Navigating daily life with a focus on gratitude and the resident strength found in self-awareness.</p>
+            <a href="https://timelesstoday.tv" target="_blank" class="btn-source">Source: TimelessToday</a>
         </div>
     </div>
+</section>
 
-    <div class="source-card">
-        <div class="image-box" style="background-image: url('https://www.premrawat.com/wp-content/uploads/2021/04/PR-Website-Logo.png'); background-size: contain; background-repeat: no-repeat;">
-            <span class="badge" style="background: #333;">OFFICIAL NEWS</span>
-        </div>
-        <div class="content">
-            <h3>PremRawat.com</h3>
-            <p>Stay updated with personal news, book updates, and the latest media releases directly from Prem Rawat's official site.</p>
-            <a href="https://www.premrawat.com/media/" target="_blank" class="btn-launch">Open Media Newsroom</a>
+<section class="area-section">
+    <h2 class="area-title">3. Human Potential</h2>
+    <div class="video-grid">
+        <div class="card">
+            <h3>The Peace Education Program (TPRF)</h3>
+            <div class="video-box">
+                <iframe src="https://www.youtube-nocookie.com/embed/6P0m_1H-LSw" allowfullscreen></iframe>
+            </div>
+            <p class="description">An overview of how the Peace Education Program helps individuals discover their own potential for hope, choice, and dignity.</p>
+            <a href="https://tprf.org/peace-education-program/" target="_blank" class="btn-source">Source: TPRF.org</a>
         </div>
     </div>
-</div>
+</section>
 
-<footer style="text-align:center; padding: 50px; color: #888;">
-    <p>&copy; 2026 Peace Hub - Unified Access to Official Sources</p>
+<footer>
+    <p style="text-align:center; padding: 40px; color: #999;">Content &copy; 2026 | Unified Media Access</p>
 </footer>
 
 </body>
