@@ -16,48 +16,46 @@
     <h1>Prem Rawat Themes Portal</h1>
     <div id="portal-content">Loading the latest themes...</div>
 
-    <script>
     async function loadPortal() {
-        try {
-            // Using a relative path fixes the "Check GitHub file path" and CORS errors
-            const response = await fetch('./data.json'); 
-            
-            if (!response.ok) throw new Error('File not found');
-            
-            const videos = await response.json();
-            const container = document.getElementById('portal-content');
-            container.innerHTML = ''; 
+    const response = await fetch('./data.json');
+    const themes = await response.json();
+    const container = document.getElementById('portal-content');
+    container.innerHTML = '';
 
-            const grouped = videos.reduce((acc, video) => {
-                (acc[video.area] = acc[video.area] || []).push(video);
-                return acc;
-            }, {});
+    themes.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        // Start with the first video in the queue
+        let currentIdx = 0;
 
-            for (const area in grouped) {
-                let section = `<div class="area-container"><h2>${area}</h2><div class="video-grid">`;
-                grouped[area].forEach(v => {
-                    section += `
-                        <div class="card">
-                            <span class="theme-tag">${v.theme}</span>
-                            <h3>${v.title}</h3>
-                            <div class="video-box">
-                                <iframe src="https://www.youtube.com/embed/${v.youtubeId}" allowfullscreen></iframe>
-                            </div>
-                            <p><a href="${v.source}" target="_blank">View Original Source</a></p>
-                        </div>`;
-                });
-                section += `</div></div>`;
-                container.innerHTML += section;
-            }
-        } catch (e) {
-            document.getElementById('portal-content').innerHTML = 
-                `<div style="color:red; padding:20px; border:1px solid red;">
-                    <strong>Error:</strong> Could not find <code>data.json</code>. <br>
-                    Make sure the file is named exactly <code>data.json</code> and is in the same folder as this HTML file.
-                </div>`;
-        }
-    }
-    loadPortal();
-</script>
+        card.innerHTML = `
+            <span class="theme-tag">${item.theme}</span>
+            <h3>${item.theme} Presentation</h3>
+            <div class="video-box">
+                <iframe id="video-${item.theme}" 
+                        src="https://www.youtube.com/embed/${item.queue[currentIdx]}?enablejsapi=1" 
+                        allowfullscreen></iframe>
+            </div>
+            <p id="status-${item.theme}" style="font-size:0.8em; color:gray;">Checking availability...</p>
+        `;
+        container.appendChild(card);
+
+        // Logic to swap video if "Unavailable"
+        const iframe = document.getElementById(`video-${item.theme}`);
+        const status = document.getElementById(`status-${item.theme}`);
+
+        // Note: YouTube doesn't always trigger an error event for blocked embeds, 
+        // so we provide a manual "Try Next Video" button if they see an error.
+        status.innerHTML = `<button onclick="nextVideo('${item.theme}', ${JSON.stringify(item.queue)})">Video not loading? Try Next Option</button>`;
+    });
+}
+
+function nextVideo(themeId, queue) {
+    const iframe = document.getElementById(`video-${themeId}`);
+    // Find current ID and move to next
+    let currentSrc = iframe.src.split('embed/')[1].split('?')[0];
+    let nextIdx = (queue.indexOf(currentSrc) + 1) % queue.length;
+    iframe.src = `https://www.youtube.com/embed/${queue[nextIdx]}?enablejsapi=1`;
+}
 </body>
 </html>
