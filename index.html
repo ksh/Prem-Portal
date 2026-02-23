@@ -3,129 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prem Rawat Portal</title>
+    <title>Prem Rawat - Peace Portal</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #3498db; --bg: #f0f2f5; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
-        header { text-align: center; padding: 30px; background: var(--primary); color: white; border-radius: 12px; margin-bottom: 30px; }
-        .area-section { margin-bottom: 40px; }
-        .area-title { border-left: 4px solid var(--accent); padding-left: 15px; margin-bottom: 20px; color: var(--primary); font-size: 1.4rem; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
-        .video-box { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
-        .video-box div { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .status { margin-top: 10px; font-size: 0.8rem; color: #888; }
-        #loader { text-align: center; padding: 50px; font-style: italic; color: #666; }
+        :root { --primary: #2c3e50; --accent: #3498db; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
+        header { text-align: center; padding: 40px 20px; background: var(--primary); color: white; border-radius: 12px; margin-bottom: 30px; }
+        .area-section { margin-bottom: 50px; }
+        .area-title { border-bottom: 3px solid var(--accent); display: inline-block; margin-bottom: 25px; padding-bottom: 5px; color: var(--primary); }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 25px; }
+        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .video-box { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .theme-label { font-weight: bold; color: var(--accent); text-transform: uppercase; font-size: 0.8em; }
+        h3 { margin: 5px 0; font-size: 1.1rem; }
+        @media (max-width: 480px) { .video-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Prem Rawat Themes Portal</h1>
-    <p>Peace Education Resources</p>
+    <p>Peace Education & Insights (2026 Edition)</p>
 </header>
 
 <div id="portal-content">
-    <div id="loader">
-        <p>Connecting to YouTube API and loading data.json...</p>
     </div>
-</div>
-
-<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-    let videoData = [];
-    let apiReady = false;
+    const videos = [
+        { area: "1. Inner Discovery", theme: "Peace", id: "PNmTYv5OIU0", title: "Peace is Within You" },
+        { area: "1. Inner Discovery", theme: "Appreciation", id: "MpfuMFsBgNk", title: "The Power of Gratitude" },
+        { area: "1. Inner Discovery", theme: "Self-Awareness", id: "ZxLwXajEnwI", title: "Knowing Your True Self" },
+        { area: "2. Living Experience", theme: "Clarity", id: "V-o_IuMv9Xg", title: "Clarity in a Noisy World" },
+        { area: "2. Living Experience", theme: "Inner Strength", id: "LpbHcBBPMfw", title: "Discovering Your Resilience" },
+        { area: "3. Human Potential", theme: "Hope", id: "q6E0U6yTfGk", title: "A Message of Hope" },
+        { area: "3. Human Potential", theme: "Choice", id: "6P0m_1H-LSw", title: "The Gift of Choice" }
+    ];
 
-    // This is the official callback
-    function onYouTubeIframeAPIReady() {
-        console.log("YouTube API Ready");
-        apiReady = true;
-        initPortal();
-    }
-
-    async function initPortal() {
-        if (!apiReady) return; // Wait for API
-        
-        try {
-            const response = await fetch('./data.json');
-            if (!response.ok) throw new Error("File not found");
-            videoData = await response.json();
-            renderGrid();
-        } catch (e) {
-            document.getElementById('portal-content').innerHTML = `<p style="color:red; text-align:center;">Error loading data.json: ${e.message}</p>`;
-        }
-    }
-
-    // Force check if API is ready in case the callback missed it
-    const checkInterval = setInterval(() => {
-        if (typeof YT !== 'undefined' && YT.loaded && !apiReady) {
-            onYouTubeIframeAPIReady();
-            clearInterval(checkInterval);
-        }
-    }, 500);
-
-    function renderGrid() {
+    function buildPortal() {
         const container = document.getElementById('portal-content');
-        container.innerHTML = '';
-
-        const grouped = videoData.reduce((acc, item) => {
-            (acc[item.area] = acc[item.area] || []).push(item);
+        const grouped = videos.reduce((acc, v) => {
+            (acc[v.area] = acc[v.area] || []).push(v);
             return acc;
         }, {});
 
-        let gIdx = 0;
         for (const area in grouped) {
-            const section = document.createElement('div');
-            section.className = 'area-section';
-            section.innerHTML = `<h2 class="area-title">${area}</h2>`;
-            
-            const grid = document.createElement('div');
-            grid.className = 'video-grid';
-
-            grouped[area].forEach(item => {
-                const currentIdx = gIdx++;
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <h3 style="margin:0 0 10px 0; font-size:1.1rem;">${item.theme}</h3>
-                    <div class="video-box" id="wrap-${currentIdx}">
-                        <div id="player-${currentIdx}"></div>
-                    </div>
-                    <div class="status" id="stat-${currentIdx}">Waiting for player...</div>
-                `;
-                grid.appendChild(card);
-                loadVideo(currentIdx, item.queue, 0);
+            let html = `<section class="area-section"><h2 class="area-title">${area}</h2><div class="video-grid">`;
+            grouped[area].forEach(v => {
+                html += `
+                    <div class="card">
+                        <span class="theme-label">${v.theme}</span>
+                        <h3>${v.title}</h3>
+                        <div class="video-box">
+                            <iframe src="https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen></iframe>
+                        </div>
+                    </div>`;
             });
-            section.appendChild(grid);
-            container.appendChild(section);
+            html += `</div></section>`;
+            container.innerHTML += html;
         }
     }
-
-    function loadVideo(idx, queue, qIdx) {
-        const status = document.getElementById(`stat-${idx}`);
-        
-        new YT.Player(`player-${idx}`, {
-            videoId: queue[qIdx],
-            playerVars: { 'modestbranding': 1, 'rel': 0, 'origin': window.location.origin },
-            events: {
-                'onReady': () => { status.innerHTML = "✓ Source Active"; },
-                'onError': (e) => {
-                    if (qIdx + 1 < queue.length) {
-                        status.innerHTML = "Trying backup source...";
-                        e.target.destroy();
-                        const wrap = document.getElementById(`wrap-${idx}`);
-                        const nextDiv = document.createElement('div');
-                        nextDiv.id = `player-${idx}`;
-                        wrap.appendChild(nextDiv);
-                        loadVideo(idx, queue, qIdx + 1);
-                    } else {
-                        status.innerHTML = "✖ Source Restricted";
-                    }
-                }
-            }
-        });
-    }
+    buildPortal();
 </script>
 
 </body>
