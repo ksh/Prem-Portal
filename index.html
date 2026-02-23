@@ -17,45 +17,47 @@
     <div id="portal-content">Loading the latest themes...</div>
 
     <script>
-        // REPLACE THESE TWO VARIABLES:
-        const username = 'YOUR_GITHUB_USERNAME';
-        const repo = 'YOUR_REPO_NAME';
-        const dataUrl = `https://raw.githubusercontent.com/${username}/${repo}/main/data.json`;
+    async function loadPortal() {
+        try {
+            // Using a relative path fixes the "Check GitHub file path" and CORS errors
+            const response = await fetch('./data.json'); 
+            
+            if (!response.ok) throw new Error('File not found');
+            
+            const videos = await response.json();
+            const container = document.getElementById('portal-content');
+            container.innerHTML = ''; 
 
-        async function loadPortal() {
-            try {
-                const response = await fetch(dataUrl);
-                const videos = await response.json();
-                const container = document.getElementById('portal-content');
-                container.innerHTML = ''; // Clear loading text
+            const grouped = videos.reduce((acc, video) => {
+                (acc[video.area] = acc[video.area] || []).push(video);
+                return acc;
+            }, {});
 
-                // Group by Area
-                const grouped = videos.reduce((acc, video) => {
-                    (acc[video.area] = acc[video.area] || []).push(video);
-                    return acc;
-                }, {});
-
-                for (const area in grouped) {
-                    let section = `<div class="area-container"><h2>${area}</h2><div class="video-grid">`;
-                    grouped[area].forEach(v => {
-                        section += `
-                            <div class="card">
-                                <span class="theme-tag">${v.theme}</span>
-                                <h3>${v.title}</h3>
-                                <div class="video-box">
-                                    <iframe src="https://www.youtube.com/embed/${v.youtubeId}"></iframe>
-                                </div>
-                                <p><a href="${v.source}" target="_blank">View Original Source</a></p>
-                            </div>`;
-                    });
-                    section += `</div></div>`;
-                    container.innerHTML += section;
-                }
-            } catch (e) {
-                document.getElementById('portal-content').innerHTML = "Error loading data. Check GitHub file path.";
+            for (const area in grouped) {
+                let section = `<div class="area-container"><h2>${area}</h2><div class="video-grid">`;
+                grouped[area].forEach(v => {
+                    section += `
+                        <div class="card">
+                            <span class="theme-tag">${v.theme}</span>
+                            <h3>${v.title}</h3>
+                            <div class="video-box">
+                                <iframe src="https://www.youtube.com/embed/${v.youtubeId}" allowfullscreen></iframe>
+                            </div>
+                            <p><a href="${v.source}" target="_blank">View Original Source</a></p>
+                        </div>`;
+                });
+                section += `</div></div>`;
+                container.innerHTML += section;
             }
+        } catch (e) {
+            document.getElementById('portal-content').innerHTML = 
+                `<div style="color:red; padding:20px; border:1px solid red;">
+                    <strong>Error:</strong> Could not find <code>data.json</code>. <br>
+                    Make sure the file is named exactly <code>data.json</code> and is in the same folder as this HTML file.
+                </div>`;
         }
-        loadPortal();
-    </script>
+    }
+    loadPortal();
+</script>
 </body>
 </html>
